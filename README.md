@@ -45,13 +45,50 @@ Call the `Math` service, to concatenate/add two parameters `a` and `b`
 http://localhost:8182/api/add?a=1&b=10
 ```
 
-### Math service
+### Play with math
 
-See `/math-service` folder
+See `/play` folder for simple [hemera](https://hemerajs.github.io/hemera/getting-started.html) examples:
 
-`add` will be the route on `/api`, ie. `/api/add`
+```js
+hemera.ready(function () {
 
-`a` and `b` will be numbers that are required (on validation).
+  // add service, listening to 'math' messages with command 'add'
+  hemera.add({
+    topic: "math",
+    cmd: "add"
+  }, function (req, cb) {
+    // return result of adding a and b from request
+    cb(null, req.a + req.b)
+  })
+
+  // make an action math.add with argument a: 1 and b: 2.
+  // this add command message is sent on topic 'math'
+  hemera.act({
+    topic: "math",
+    cmd: "add",
+    a: 1,
+    b: 2
+  }, function (err, resp) {
+
+    console.log("Result", resp)
+  })
+})
+```
+
+#### Run service
+
+```
+cd play
+npm i
+node math-service.js
+```
+
+### Aither: Math service
+
+Aither uses Hapi with Hemera. See `/math-service` folder:
+
+* `add` will be the route on `/api`, ie. `/api/add`
+* `a` and `b` will be numbers that are required (on validation).
 
 Hemera uses [Hapi](https://hapijs.com/) Web server with [Validation](https://hapijs.com/tutorials/validation) using [Joi](https://github.com/hapijs/joi) Schemas and validation rules.
 
