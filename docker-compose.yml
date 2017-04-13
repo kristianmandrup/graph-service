@@ -52,6 +52,24 @@ services:
       ZIPKIN_PORT: 9411
       HEMERA_LOG_LEVEL: silent
 
+  graph-service:
+    build:
+      context: "./graph-service"
+    links:
+      - nats
+      - zipkin
+    depends_on:
+      - nats
+      - redis
+    restart: always
+    environment:
+      NATS_URL: nats://nats:4222
+      NATS_USER: ruser
+      NATS_PW: T0pS3cr3t
+      ZIPKIN_URL: zipkin
+      ZIPKIN_PORT: 9411
+      HEMERA_LOG_LEVEL: silent
+
   cache-service:
     build:
       context: "./cache-service"
