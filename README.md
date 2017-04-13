@@ -83,6 +83,63 @@ npm i
 node math-service.js
 ```
 
+#### Adding schema validation
+
+See [payload validation](https://hemerajs.github.io/hemera/1_payload_validation.html) which uses [hemera-joi](https://github.com/hemerajs/hemera/tree/master/packages/hemera-joi)
+
+```js
+hemera.add({
+  topic: "math",
+  cmd: "add",
+  a: Joi.number().required(),
+  b: Joi.number().required()
+  // ,maxMessages$: 1
+}, function (req, cb) {
+  cb(null, req.a + req.b)
+})
+```
+
+You can also use `maxMessages$: 1` to only listen to one message, then unsubcribe.
+
+#### Testing
+
+See [hemera testing](https://hemerajs.github.io/hemera/5_testing.html)
+
+```js
+  // configure hemera and services
+  // ...
+
+  hemera.act({
+    topic: "math",
+    cmd: "add",
+    a: 1,
+    b: 2
+  }, function (err, resp) {
+    // do expectations on respnse (result) and any errors
+    expect(err).to.be.not.exists()
+    expect(resp).to.be.equals(3)
+
+    // close hemera
+    hemera.close()
+
+    // notify async test completed
+    done()
+  })
+```
+
+#### Monitoring services
+
+See [monitoring](https://hemerajs.github.io/hemera/6_monitoring.html)
+
+#### hemera CLI
+
+See [hemera-cli](https://github.com/hemerajs/hemera-cli)
+
+```
+npm install -g hemera-cli
+hemera-cli
+```
+
 ### Aither: Math service
 
 Aither uses Hapi with Hemera. See `/math-service` folder:
