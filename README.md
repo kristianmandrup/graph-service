@@ -137,6 +137,8 @@ Mocking Request/Response:
 - [hock](https://github.com/mmalecki/hock)
 - [supertest](https://github.com/visionmedia/supertest)
 
+Mountebank service testing: [mountebank-helper](https://www.npmjs.com/package/mountebank-helper)
+
 #### Monitoring services
 
 See [monitoring](https://hemerajs.github.io/hemera/6_monitoring.html)

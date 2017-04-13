@@ -1,0 +1,12 @@
+{
+  "name": "aither-graph-service",
+  "version": "1.0.0",
+  "description": "Graph service",
+  "author": "Kristian Mandrup <kmandrup@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "ava": "^0.19.1",
+    "nock": "^9.0.13",
+    "supertest": "^3.0.0"
+  }
+}
