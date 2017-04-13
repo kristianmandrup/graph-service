@@ -130,7 +130,11 @@ See [hemera testing](https://hemerajs.github.io/hemera/5_testing.html)
 #### Testing endpoints
 
 - [Ava endpoint testing](https://github.com/avajs/ava/blob/master/docs/recipes/endpoint-testing.md)
-- [Nock](https://github.com/node-nock/nock)
+
+Mocking Request/Response:
+
+- [nock](https://github.com/node-nock/nock)
+- [hock](https://github.com/mmalecki/hock)
 - [supertest](https://github.com/visionmedia/supertest)
 
 #### Monitoring services
