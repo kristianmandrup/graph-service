@@ -39,9 +39,104 @@ Print the html artillery report with `artillery report <report.json>`
 
 ## Start a request against load balancer
 
+Call the `Math` service, to concatenate/add two parameters `a` and `b`
+
 ```
 http://localhost:8182/api/add?a=1&b=10
 ```
+
+### Math service
+
+See `/math-service` folder
+
+`add` will be the route on `/api`, ie. `/api/add`
+
+`a` and `b` will be numbers that are required (on validation).
+
+Hemera uses [Hapi](https://hapijs.com/) Web server with [Validation](https://hapijs.com/tutorials/validation) using [Joi](https://github.com/hapijs/joi) Schemas and validation rules.
+
+```js
+  hemera.add({
+    topic: 'math',
+    cmd: 'add',
+    a: Joi.number().required(),
+    b: Joi.number().required(),
+    refresh: Joi.boolean().default(false)
+  }, function (req, cb) {
+    // ...
+    let operation = (a, b) => {
+      return a + b
+    }
+
+    //big operation
+    result = operation(req.a, req.b)
+  })
+```
+
+This hemera service uses publish/subscribe via NATS. It is configured to listen/sends messages on the topic queue `math`.
+
+#### Docker config
+
+in `/math-service/Dockerfile` we:
+- use the minimal node alpine image as baseline
+- create a working dir `/usr/src/app`
+- copy `package.json` into working dir
+- run `npm install` to install all dependencies
+- copy the service into working dir
+- exectute the service via the command `node .` (ie. `node index.js`)
+
+```yml
+FROM node:7.4-alpine
+
+# Create app directory
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+# Install app dependencies
+COPY package.json /usr/src/app/
+RUN npm install --production
+
+# Bundle app source
+COPY . /usr/src/app
+
+CMD [ "node", "." ]
+```
+
+#### Docker composition
+
+In `docker-compose.yml`
+
+```yaml
+  math-service:
+    build:
+      context: "./math-service"
+    links:
+      - nats
+      - zipkin
+    depends_on:
+      - nats
+      - redis
+    restart: always
+    environment:
+      NATS_URL: nats://nats:4222
+      NATS_USER: ruser
+      NATS_PW: T0pS3cr3t
+      ZIPKIN_URL: zipkin
+      ZIPKIN_PORT: 9411
+      HEMERA_LOG_LEVEL: silent
+```
+
+We build the service at `./math-service` with links to: `nats` and `zipkin`
+and dependencies to services `nats` and `redis` (cache).
+NATS is the messaging infrastructure for intra-service communication.
+
+We then define some environment variables that are made available for the *math* service
+
+### Graph service
+
+See `/graph-service` folder
+
+TODO
 
 ### Traefik dashboard
 
