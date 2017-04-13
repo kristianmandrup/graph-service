@@ -127,6 +127,12 @@ See [hemera testing](https://hemerajs.github.io/hemera/5_testing.html)
   })
 ```
 
+#### Testing endpoints
+
+- [Ava endpoint testing](https://github.com/avajs/ava/blob/master/docs/recipes/endpoint-testing.md)
+- [Nock](https://github.com/node-nock/nock)
+- [supertest](https://github.com/visionmedia/supertest)
+
 #### Monitoring services
 
 See [monitoring](https://hemerajs.github.io/hemera/6_monitoring.html)

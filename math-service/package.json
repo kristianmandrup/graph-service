@@ -1,14 +1,19 @@
 {
-  "name": "hemera-client",
+  "name": "math-service",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "author": "Dustin Deus <deusdustin@gmail.com>",
-  "license": "ISC",
+  "author": "Kristian Mandrup <kmandrup@gmail.com>",
+  "license": "MIT",
   "dependencies": {
     "hemera-joi": "^0.1.78",
     "hemera-zipkin": "^0.3.2",
     "nats": "^0.7.4",
     "nats-hemera": "^0.8.1"
+  },
+  "devDependencies": {
+    "ava": "^0.19.1",
+    "nock": "^9.0.13",
+    "supertest": "^3.0.0"
   }
 }

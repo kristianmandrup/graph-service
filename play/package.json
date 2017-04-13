@@ -1,12 +1,17 @@
 {
   "name": "math-service",
   "version": "1.0.0",
-  "description": "",
+  "description": "Math service",
   "main": "index.js",
   "author": "Dustin Deus <deusdustin@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "nats": "^0.7.2",
     "nats-hemera": "^0.8.1"
+  },
+  "devDependencies": {
+    "ava": "^0.19.1",
+    "nock": "^9.0.13",
+    "supertest": "^3.0.0"
   }
 }
